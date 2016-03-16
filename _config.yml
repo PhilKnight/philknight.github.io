@@ -1,2 +1,3 @@
 name: Phil Knight, Spatial Projects
 markdown: kramdown
+permalink: /blog/:year/:month/:day/:title
