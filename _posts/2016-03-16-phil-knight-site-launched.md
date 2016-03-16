@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Phil Knight Website Launch"
+title: "Phil Knight Site Launched"
 date: 2016-03-30
 ---
 
