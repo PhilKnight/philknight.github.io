@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Easy example | CartoDB.js</title>
+    <title>THOR Data Example Map</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
@@ -23,15 +23,15 @@
 
     <script>
       function main() {
-        cartodb.createVis('map', 'https://philknight.cartodb.com/api/v2/viz/4aaad29c-002c-11e6-84fb-0ecd1babdde5/viz.json', {
-            shareable: true,
-            title: true,
-            description: true,
-            search: true,
+        cartodb.createVis('map', 'https://philknight.carto.com/api/v2/viz/9cb7c330-b155-11e6-880e-0ecd1babdde5/viz.json', {
+            shareable: false,
+            title: false,
+            description: false,
+            search: false,
             tiles_loader: true,
-            center_lat: 51.335,
-            center_lon: -2.29,
-            zoom: 15
+            center_lat: 17.564,
+            center_lon: 104.837,
+            zoom: 6 
         })
         .done(function(vis, layers) {
           // layer 0 is the base layer, layer 1 is cartodb layer
