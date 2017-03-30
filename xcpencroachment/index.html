@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>Swipe between layers</title>
+<title>XCP Encroachment</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js'></script>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
@@ -30,7 +30,7 @@
 
 <script>
   var map = L.map('map');
-  var basemap = L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326}).addTo(map);
+  L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326}).addTo(map);
   var overlay = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857}).addTo(map);
   // var polys = L.geoJSON(encroachment).addTo(map);
   var range = document.getElementById('range');
