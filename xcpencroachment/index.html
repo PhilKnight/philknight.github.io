@@ -25,17 +25,14 @@
 </style>
 
 <div id='map'></div>
+<script src="polygons.js" type="text/javascript"></script>
 <input id='range' class='range' type='range' min='0' max='1.0' step='any' />
 
 <script>
   var map = L.map('map');
-  L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {
-  layers: 'NGD_South_Orthophotos',
-  format: 'image/png',
-  crs: L.CRS.EPSG4326
-  }).addTo(map);
-
+  var basemap = L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326}).addTo(map);
   var overlay = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857}).addTo(map);
+  var polys = L.geoJSON(encroachment).addTo(map);
   var range = document.getElementById('range');
 
   function clip() {
