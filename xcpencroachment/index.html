@@ -32,13 +32,15 @@
   var map = L.map('map');
   L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326}).addTo(map);
   var overlay = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857}).addTo(map);
+  
+  $.getJSON("corezone.geojson",function(coredata)
+  {L.geoJson(coredata).addTo(map);
+  );
+  
   $.getJSON("encroach.geojson",function(encroachdata)
-  {L.geoJson(encroachdata,{
-    style: function (feature){
-      {color: "#377eb8", weight: 1, opacity: 0.5, fill: false};
-    }).addTo(map);
-  }
-});
+  {L.geoJson(encroachdata).addTo(map);
+  );
+   
   var range = document.getElementById('range');
 
   function clip() {
