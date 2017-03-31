@@ -38,7 +38,7 @@
   });
   
   $.getJSON("encroach.geojson",function(encroachdata){
-    L.geoJson(encroachdata, {style: {color: "#377eb8", weight: 1, opacity: 0.5, fill: false}}).addTo(map);
+    L.geoJson(encroachdata, {style: {color: "#377eb8", weight: 2, fill: false}}).addTo(map);
   });
    
   var range = document.getElementById('range');
