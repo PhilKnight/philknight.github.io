@@ -33,8 +33,10 @@
   L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326}).addTo(map);
   var overlay = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857}).addTo(map);
   
-  var corezoneoverlay = $.getJSON("corezone.geojson",function(coredata){L.geoJson(coredata, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.9, dashArray: "5,5", fill: false}}).addTo(map);});
-  var encroachoverlay = $.getJSON("encroach.geojson",function(encroachdata){L.geoJson(encroachdata,{style: {color: "#e41a1c", weight: 3, fillColor: "#e41a1c", fillOpacity: 0.05},onEachFeature:function(feature,layer){layer.bindPopup("<strong>" + feature.properties.Hectares + "Ha" + "</strong><br/>")}}).addTo(map);});
+  $.getJSON("corezone.geojson",function(coredata));{
+            var corezoneoverlay = L.geoJson(coredata, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.9, dashArray: "5,5", fill: false}}).addTo(map);};
+  $.getJSON("encroach.geojson",function(encroachdata));{
+            var encroachoverlay = L.geoJson(encroachdata,{style: {color: "#e41a1c", weight: 3, fillColor: "#e41a1c", fillOpacity: 0.05},onEachFeature:function(feature,layer){layer.bindPopup("<strong>" + feature.properties.Hectares + "Ha" + "</strong><br/>")}}).addTo(map);};
   L.control.layers(corezoneoverlay, encroachoverlay).addTo(map);
    
   var range = document.getElementById('range');
