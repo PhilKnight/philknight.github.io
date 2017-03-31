@@ -41,7 +41,7 @@
       opacity: 0.5,
       fill: false
       }
-    ).addTo(map);
+    }).addTo(map);
   });
   $.getJSON("corezone.geojson",function(zonedata){
     L.geoJson(zonedata, {
@@ -52,7 +52,7 @@
       dashArray: "5,5",
       fill: false
       }
-    ).addTo(map);
+    }).addTo(map);
   });
   var range = document.getElementById('range');
 
