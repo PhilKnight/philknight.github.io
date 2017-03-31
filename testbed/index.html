@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>XCP Encroachment</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js'></script>
+<script src="jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+
+
+<style>
+.range {
+  position:absolute;
+  width:100%;
+  }
+.leaflet-top .leaflet-control-zoom {
+  top:20px;
+  }
+</style>
+
+<div id='map'></div>
+<input id='range' class='range' type='range' min='0' max='1.0' step='any' />
+
+<script>
+  var map = L.map('map');
+  L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326, attribution: "Imagery Right Side: ©2015 National Geographic Department of Lao People's Democratic Republic"}).addTo(map);
+  var overlay = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "Imagery Left Side: ©2017 Google"}).addTo(map);
+  
+  $.getJSON("corezone.geojson",function(coredata){
+            var corezoneoverlay = L.geoJson(coredata, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.9, dashArray: "5,5", fill: false}}).addTo(map);
+            });
+  $.getJSON("encroach.geojson",function(encroachdata){
+            var encroachoverlay = L.geoJson(encroachdata,{style: {color: "#e41a1c", weight: 3, fillColor: "#e41a1c", fillOpacity: 0.05},onEachFeature:function(feature,layer){layer.bindPopup("<strong>" + feature.properties.Hectares + "Ha" + "</strong><br/>")}}).addTo(map);
+            });
+  //var overyays = {
+		//"Core Zone Boundary": corezoneoverlay
+		//"Suspected Encroachment": encroachoverlay
+	//};
+  
+  //L.control.layers(overyays).addTo(map);
+   
+  var range = document.getElementById('range');
+  function clip() {
+    var nw = map.containerPointToLayerPoint([0, 0]),
+        se = map.containerPointToLayerPoint(map.getSize()),
+        clipX = nw.x + (se.x - nw.x) * range.value;
+    overlay.getContainer().style.clip = 'rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
+  }
+  range['oninput' in range ? 'oninput' : 'onchange'] = clip;
+  map.on('move', clip);
+  map.setView([16.3739, 105.2106], 13);
+  clip();
+</script>
+
+</body>
+</html>
