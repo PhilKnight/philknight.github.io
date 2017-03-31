@@ -39,7 +39,7 @@
   
   $.getJSON("encroach.geojson",function(encroachdata){
     L.geoJson(encroachdata,{
-      style: {color: "#e41a1c", weight: 3, ,fillColor: "#e41a1c", fillOpacity: 0.8},
+      style: {color: "#e41a1c", weight: 3, fillColor: "#e41a1c", fillOpacity: 0.8},
       onEachFeature:function(feature,layer){layer.bindPopup("<strong>" + feature.properties.Hectares + "Ha" + "</strong><br/>")}
       }).addTo(map);
   });
