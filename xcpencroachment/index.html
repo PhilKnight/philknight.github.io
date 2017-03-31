@@ -34,7 +34,7 @@
   var overlay = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857}).addTo(map);
    
   $.getJSON("corezone.geojson",function(coredata){
-    L.geoJson(coredata, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.8, dashArray: "5,5", fill: false}}).addTo(map);
+    L.geoJson(coredata, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.05, dashArray: "5,5", fill: false}}).addTo(map);
   });
   
   $.getJSON("encroach.geojson",function(encroachdata){
