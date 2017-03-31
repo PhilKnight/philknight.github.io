@@ -39,12 +39,12 @@
   $.getJSON("encroach.geojson",function(encroachdata){
             var encroachoverlay = L.geoJson(encroachdata,{style: {color: "#e41a1c", weight: 3, fillColor: "#e41a1c", fillOpacity: 0.05},onEachFeature:function(feature,layer){layer.bindPopup("<strong>" + feature.properties.Hectares + "Ha" + "</strong><br/>")}}).addTo(map);
             });
-  var overyays = {
-		"Core Zone Boundary": corezoneoverlay
-		"Suspected Encroachment": encroachoverlay
-	};
+  //var overyays = {
+		//"Core Zone Boundary": corezoneoverlay
+		//"Suspected Encroachment": encroachoverlay
+	//};
   
-  L.control.layers(overyays).addTo(map);
+  //L.control.layers(overyays).addTo(map);
    
   var range = document.getElementById('range');
 
