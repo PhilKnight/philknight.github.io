@@ -33,27 +33,33 @@
   L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326}).addTo(map);
   var overlay = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857}).addTo(map);
     // load GeoJSON from an external file
-  $.getJSON("encroach.geojson",function(encroachdata){
-    L.geoJson(encroachdata, {
-      style: function (feature) {
-      color: "#377eb8",
-      weight: 1,
-      opacity: 0.5,
-      fill: false
-      }
-    }).addTo(map);
-  });
-  $.getJSON("corezone.geojson",function(zonedata){
-    L.geoJson(zonedata, {
-      style: function (feature) {
-      color: "#ff7f00",
-      weight: 1,
-      opacity: 0.8,
-      dashArray: "5,5",
-      fill: false
-      }
-    }).addTo(map);
-  });
+  //$.getJSON("encroach.geojson",function(encroachdata){
+    //L.geoJson(encroachdata, {
+     // style: function (feature) {
+     // color: "#377eb8",
+     // weight: 1,
+     // opacity: 0.5,
+     // fill: false
+     // }
+    //}).addTo(map);
+  //});
+  function coreStyle(){
+  return {
+    color: "#ff7f00",
+    weight: 1,
+    opacity: 0.8,
+    dashArray: "5,5",
+    fill: false
+  }
+};
+
+$.getJSON("corezone.geojson",function(zonedata)
+  {L.geoJson(zonedata,
+    {style: coreStyle
+    }
+  }
+  ).addTo(map);
+);
   var range = document.getElementById('range');
 
   function clip() {
