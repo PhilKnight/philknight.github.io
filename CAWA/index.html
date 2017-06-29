@@ -26,6 +26,11 @@
 
 
 <script>
+  var ramsar = new L.LayerGroup();
+    
+  $.getJSON("ramsar_existing.geojson",function(ramsar_data){
+            L.geoJson(ramsar_data, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.9, dashArray: "5,5", fill: false}}).addTo(ramsar);
+            });
 
   var cawa_map = L.map('map');
   
@@ -145,7 +150,9 @@
 
   var basemaps = {"2011 NGD Orthophotos": ngd, "2015 Google Satellite": goog, "Global Surface Water Transitions": transitions, "Global Surface Water Occurrence": occurrence,"Global Surface Water Change": change, "Global Surface Water Seasonality": seasonality, "Global Surface Water Recurrence ": recurrence, "Global Surface Water Extent": extent, "World Wetlands": global_wetlands, "World Peatlands": peat, "Forest Cover 2000": forest_cover, "Forest Cover Loss 2001–2014": forest_loss, "Forest Cover Gain 2000–2012": forest_gain, "Active Fires Last 48 Hours" :fire};
 
-  L.control.layers(basemaps,null).addTo(cawa_map);
+  var vectors = {"Ramsar Boundary Existing": ramsar}
+  
+  L.control.layers(basemaps,vectors).addTo(cawa_map);
 
 cawa_map.setView([16.3739, 105.2106], 13);
 
