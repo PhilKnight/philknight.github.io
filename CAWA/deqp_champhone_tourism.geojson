@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"name": "deqp_champhone_tourism",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Fay Nam Souiy", "Type": "Natural", "DNAME": "Champhon" }, "geometry": { "type": "Point", "coordinates": [ 105.19762608528859, 16.454186938524305 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Dong meuang- Dong ling", "Type": "Natural", "DNAME": "Champhon" }, "geometry": { "type": "Point", "coordinates": [ 105.251539842336001, 16.543622749549819 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Norng Pafa", "Type": "Natural", "DNAME": "Champhon" }, "geometry": { "type": "Point", "coordinates": [ 105.187173018211652, 16.455054924664939 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Thad Phon", "Type": "Culture", "DNAME": "Champhon" }, "geometry": { "type": "Point", "coordinates": [ 105.230632968126514, 16.640480533505269 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Vat Sesaked Suan Tarn", "Type": "Culture", "DNAME": "Champhon" }, "geometry": { "type": "Point", "coordinates": [ 105.39818197808026, 16.539921750875155 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Name": "Stone House", "Type": "Natural", "DNAME": "Champhon" }, "geometry": { "type": "Point", "coordinates": [ 105.128629565446403, 16.527050602895553 ] } }
+]
+}

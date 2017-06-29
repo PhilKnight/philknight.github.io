@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "iucn_water_control",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Point_ID": "WC001", "Infra_Type": "Water Control", "Title": "Water Distribution Box Near Dan Phon Lake", "Descriptio": "This water distribution box delivers water from a pump on Phon Lake to a cement canal. It provides irrigation water for rice paddy fields in the surrounding area.", "Latitude_N": 16.41478, "Longitude_": 105.18619, "Accuracy_m": 4.0, "Date_": "2014\/07\/02", "Time_": "1899\/12\/30", "GPS_Model": "Magellan Explorist 510", "Surveyor": "Dan Constable", "Email": "dan.constable@iucn.org" }, "geometry": { "type": "Point", "coordinates": [ 105.186189999554117, 16.414779999647887 ] } }
+]
+}

@@ -31,7 +31,7 @@
 <script>
   var corezone = new L.LayerGroup();
   var encroach = new L.LayerGroup();
-	
+  
   $.getJSON("corezone.geojson",function(coredata){
             L.geoJson(coredata, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.9, dashArray: "5,5", fill: false}}).addTo(corezone);
             });
@@ -40,15 +40,15 @@
             });
   var basemap = L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326, attribution: "Imagery Right Side: ©2015 National Geographic Department of Lao People's Democratic Republic"});
   var overlay = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "Imagery Left Side: ©2017 Google"});
-	
+  
   var map = L.map('map',{layers: [basemap, overlay, corezone, encroach]});
-	
+  
   var overyays = {"Core Zone Boundary": corezone, "Suspected Encroachment": encroach};
-	
+  
   L.control.layers(null,overyays).addTo(map);
      
   var range = document.getElementById('range');
-	
+  
   function clip() {
     var nw = map.containerPointToLayerPoint([0, 0]),
         se = map.containerPointToLayerPoint(map.getSize()),
@@ -59,7 +59,7 @@
   map.on('move', clip);
   map.setView([16.3739, 105.2106], 13);
   clip();
-	
+  
 </script>
 
 </body>
