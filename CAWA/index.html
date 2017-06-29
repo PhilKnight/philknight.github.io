@@ -1,65 +1,159 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset=utf-8 />
-<title>XCP Encroachment</title>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js'></script>
-<script src="jquery-2.1.1.min.js"></script>
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-<style>
-  body { margin:0; padding:0; }
+
+  <head>
+  <meta charset=utf-8 />
+  <title>XCP Encroachment</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
+   integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
+   crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
+   integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
+   crossorigin=""></script>
+  <!-- Load Esri Leaflet from CDN -->
+  <script src="https://unpkg.com/esri-leaflet@2.0.8"
+    integrity="sha384-ze7rgny7/YGFxBlVgTBdOABNWe5V9BYjju/qwqJhCU8XJHtuEnRlbUpN5lXyY706"
+    crossorigin=""></script>
+  <style>
   #map { position:absolute; top:0; bottom:0; width:100%; }
-</style>
-</head>
+  </style>
+  </head>
+
 <body>
-
-
-<style>
-.range {
-  position:absolute;
-  width:100%;
-  }
-.leaflet-top .leaflet-control-zoom {
-  top:20px;
-  }
-</style>
-
 <div id='map'></div>
-<input id='range' class='range' type='range' min='0' max='1.0' step='any' />
+
 
 <script>
-  var corezone = new L.LayerGroup();
-  var encroach = new L.LayerGroup();
-	
-  $.getJSON("corezone.geojson",function(coredata){
-            L.geoJson(coredata, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.9, dashArray: "5,5", fill: false}}).addTo(corezone);
+  var cawa_map = L.map('map');
+
+  var ngd = L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326, attribution: "©2015 National Geographic Department of Lao People's Democratic Republic"}).addTo(cawa_map);
+  
+  var goog = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(cawa_map);
+  
+  var transitions = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(transitions);
+
+  L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/transitions/{z}/{x}/{y}.png",
+    { format: "image/png",
+      maxZoom: 20,
+      errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+      attribution: "2016 EC JRC/Google" }).addTo(transitions);
+
+  var occurrence = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(occurrence);
+
+  L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/occurrence/{z}/{x}/{y}.png",
+    { format: "image/png",
+      maxZoom: 20,
+      errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+      attribution: "2016 EC JRC/Google" }).addTo(occurrence);
+    
+  var change = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(change);
+
+  L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/change/{z}/{x}/{y}.png",
+    { format: "image/png",
+      maxZoom: 20,
+      errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+      attribution: "2016 EC JRC/Google" }).addTo(change);
+
+  var seasonality = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(seasonality);
+
+  L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/seasonality/{z}/{x}/{y}.png",
+    { format: "image/png",
+      maxZoom: 20,
+      errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+      attribution: "2016 EC JRC/Google" }).addTo(seasonality);
+
+  var recurrence  = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(recurrence );
+
+  L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/recurrence/{z}/{x}/{y}.png",
+    { format: "image/png",
+      maxZoom: 20,
+      errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+      attribution: "2016 EC JRC/Google" }).addTo(recurrence);
+
+  var extent  = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(extent);
+
+  L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/extent/{z}/{x}/{y}.png",
+    { format: "image/png",
+      maxZoom: 20,
+      errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+      attribution: "2016 EC JRC/Google" }).addTo(extent);
+
+  var forest_loss = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(forest_loss);
+
+  L.esri.imageMapLayer({
+      url: 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
+      attribution: 'Hansen/UMD/Google/USGS/NASA'
+    }).addTo(forest_loss);
+
+  var forest_gain = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(forest_gain);
+
+  L.esri.imageMapLayer({
+      url: 'http://ec2-50-18-182-188.us-west-1.compute.amazonaws.com:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+      attribution: 'Hansen/UMD/Google/USGS/NASA'
+    }).addTo(forest_gain); 
+
+  var fire = new L.LayerGroup();
+
+    L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(fire);
+
+    L.tileLayer.wms('https://firms.modaps.eosdis.nasa.gov/wms/viirs/?', {layers: 'fires48',format: 'image/png',crs: L.CRS.EPSG3857, attribution: "NASA /GSFC"}).addTo(fire);
+
+   var forest_cover = new L.LayerGroup();
+
+   L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(forest_cover);
+
+   L.tileLayer('http://earthengine.google.org/static/hansen_2013/tree_alpha/{z}/{x}/{y}.png',{ format: "image/png",
+      maxZoom: 20,
+      attribution: "Hansen/UMD/Google/USGS/NASA" }).addTo(forest_cover)
+
+   var global_wetlands = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(global_wetlands);
+
+  L.esri.tiledMapLayer({
+      url: 'https://tiles1.arcgis.com/tiles/P8Cok4qAP1sTVE59/arcgis/rest/services/World_WetlandV2_2016_CIFOR/MapServer',
+      attribution: 'CIFOR'
+    }).addTo(global_wetlands);
+
+  var peat = new L.LayerGroup();
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "©2017 Google"}).addTo(peat);
+
+  L.esri.tiledMapLayer({
+      url: 'https://tiles.arcgis.com/tiles/P8Cok4qAP1sTVE59/arcgis/rest/services/World_PeatlandV2_2016_CIFOR/MapServer',
+      attribution: 'CIFOR'
+    }).addTo(peat);
+
+  var test = new L.LayerGroup();
+
+  $.getJSON("ramsar_core_zone.geojson",function(core_zone){
+            L.geoJson(core_zone, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.9, dashArray: "5,5", fill: false}}).addTo(test);
             });
-  $.getJSON("encroach.geojson",function(encroachdata){
-            L.geoJson(encroachdata,{style: {color: "#e41a1c", weight: 3, fillColor: "#e41a1c", fillOpacity: 0.05},onEachFeature:function(feature,layer){layer.bindPopup("<strong>" + feature.properties.Hectares + "Ha" + "</strong><br/>")}}).addTo(encroach);
-            });
-  var basemap = L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326, attribution: "Imagery Right Side: ©2015 National Geographic Department of Lao People's Democratic Republic"});
-  var overlay = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20,subdomains:['mt0','mt1','mt2','mt3'],crs: L.CRS.EPSG3857, attribution: "Imagery Left Side: ©2017 Google"});
-	
-  var map = L.map('map',{layers: [basemap, overlay, corezone, encroach]});
-	
-  var overyays = {"Core Zone Boundary": corezone, "Suspected Encroachment": encroach};
-	
-  L.control.layers(null,overyays).addTo(map);
-     
-  var range = document.getElementById('range');
-	
-  function clip() {
-    var nw = map.containerPointToLayerPoint([0, 0]),
-        se = map.containerPointToLayerPoint(map.getSize()),
-        clipX = nw.x + (se.x - nw.x) * range.value;
-    overlay.getContainer().style.clip = 'rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
-  }
-  range['oninput' in range ? 'oninput' : 'onchange'] = clip;
-  map.on('move', clip);
-  map.setView([16.3739, 105.2106], 13);
-  clip();
-	
+
+  var basemaps = {"2011 NGD Orthophotos": ngd, "2015 Google Satellite": goog, "Global Surface Water Transitions": transitions, "Global Surface Water Occurrence": occurrence,"Global Surface Water Change": change, "Global Surface Water Seasonality": seasonality, "Global Surface Water Recurrence ": recurrence, "Global Surface Water Extent": extent, "World Wetlands": global_wetlands, "World Peatlands": peat, "Forest Cover 2000": forest_cover, "Forest Cover Loss 2001–2014": forest_loss, "Forest Cover Gain 2000–2012": forest_gain, "Active Fires Last 48 Hours" :fire};
+
+  var vector = {"Test 1": test};
+
+  L.control.layers(basemaps,vector).addTo(cawa_map);
+
+cawa_map.setView([16.3739, 105.2106], 13);
+
 </script>
 
 </body>
