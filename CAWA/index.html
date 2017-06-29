@@ -26,13 +26,11 @@
 
 
 <script>
-  var ramsar = new L.LayerGroup();
-    
-  $.getJSON("ramsar_existing.geojson",function(ramsar_data){
-            L.geoJson(ramsar_data, {style:{color: "#ff7f00", weight: 1.5, opacity: 0.9, dashArray: "5,5", fill: false}}).addTo(ramsar);
+  var encroach = new L.LayerGroup();
+  
+  $.getJSON("encroach.geojson",function(encroachdata){
+            L.geoJson(encroachdata,{style: {color: "#e41a1c", weight: 3, fillColor: "#e41a1c", fillOpacity: 0.05},onEachFeature:function(feature,layer){layer.bindPopup("<strong>" + feature.properties.Hectares + "Ha" + "</strong><br/>")}}).addTo(encroach);
             });
-
-  var cawa_map = L.map('map');
   
   var ngd = L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?', {layers: 'NGD_South_Orthophotos',format: 'image/png',crs: L.CRS.EPSG4326, attribution: "©2015 National Geographic Department of Lao People's Democratic Republic"}).addTo(cawa_map);
   
@@ -148,9 +146,11 @@
       attribution: 'CIFOR'
     }).addTo(peat);
 
+  var cawa_map = L.map('map', {layers: [ngd, goog, transitions, occurrence, change, seasonality, recurrence, extent, global_wetlands, peat, forest_cover, forest_loss, forest_gain, fire]});
+
   var basemaps = {"2011 NGD Orthophotos": ngd, "2015 Google Satellite": goog, "Global Surface Water Transitions": transitions, "Global Surface Water Occurrence": occurrence,"Global Surface Water Change": change, "Global Surface Water Seasonality": seasonality, "Global Surface Water Recurrence ": recurrence, "Global Surface Water Extent": extent, "World Wetlands": global_wetlands, "World Peatlands": peat, "Forest Cover 2000": forest_cover, "Forest Cover Loss 2001–2014": forest_loss, "Forest Cover Gain 2000–2012": forest_gain, "Active Fires Last 48 Hours" :fire};
 
-  var vectors = {"Ramsar Boundary Existing": ramsar}
+  var vectors = {"Core Zone Encroachment": encroach}
   
   L.control.layers(basemaps,vectors).addTo(cawa_map);
 
