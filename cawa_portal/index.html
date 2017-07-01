@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CAWA XCP Data Portal</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+    <style>
+      html, body, #map {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link rel="stylesheet" href="css/styledLayerControl.css" />
+    <!-- include cartodb.js library -->
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    <!-- styled layer control -->
+    <script src="src/styledLayerControl.js"></script>
+
+  </head>
+  <body>
+    <div id="map"></div>
+
+
+    <script>
+      function main()
+        {
+        var map = new L.Map('map', {
+          center: [16.3739, 105.2106],
+          zoom: 10
+        });
+
+        var croc = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from wcs_croc_conserv_zone',
+            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(croc)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var ramsar = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from ramsar_existing',
+            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(ramsar)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var core_zone = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from ramsar_core_zone',
+            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(core_zone)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var well = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from iucn_well',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(well)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var water_control = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from iucn_water_control',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(water_control)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var pump = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from iucn_pump',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(pump)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var erosion = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from iucn_erosion',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(erosion)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var canal = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from iucn_canal',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(canal)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var dams = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from iucn_dam',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(dams)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var bridges = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from iucn_bridges',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(bridges)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var encroachment = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from encroach',
+            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(encroachment)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var grid = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from cawa_survey_grid',
+            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(grid)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var mimosa = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from cawa_mimosa_pigra_survey',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(mimosa)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var core_z_proposed = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from cawa_core_zone_proposed',
+            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(core_z_proposed)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var ramsar_proposed = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from cawa_ramsar_proposed',
+            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(ramsar_proposed)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var ngd_elev = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from ngd_elevation_points',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(ngd_elev)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var ngd_village = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from ngd_champhone_villages',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(ngd_village)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var built = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from ngd_champhone_built_up_area',
+            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(built)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var cp_sm_ob = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from ngd_champhone_small_object',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(cp_sm_ob)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var wwffcz = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from fcz_wwf',
+            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: 'cartodb_id'
+            }]
+          }).addTo(wwffcz)
+          .on('done', function(layer) {
+            layer.setZIndex(20);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var ngd = new L.LayerGroup();
+
+        L.tileLayer.wms('http://www.ngd.la/ngd_public/wms?',
+        {layers: 'NGD_South_Orthophotos',
+        format: 'image/png',
+        crs: L.CRS.EPSG4326,
+        attribution: "©2015 National Geographic Department of Lao People's Democratic Republic",
+        zIndex: 19
+        }).addTo(ngd);
+
+        var goog = new L.LayerGroup();
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+        {maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3'],
+        crs: L.CRS.EPSG3857,
+        attribution: "©2017 Google",
+        zIndex: 0
+      }).addTo(map, goog);
+
+        var transitions = new L.LayerGroup();
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+          {maxZoom: 20,
+          subdomains:['mt0','mt1','mt2','mt3'],
+          crs: L.CRS.EPSG3857,
+          attribution: "©2017 Google",
+          zIndex: 17
+          }).addTo(transitions);
+
+        L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/transitions/{z}/{x}/{y}.png",
+          {format: "image/png",
+          maxZoom: 20,
+          errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+          attribution: "2016 EC JRC/Google",
+          zIndex: 18
+          }).addTo(transitions);
+
+        var occurrence = new L.LayerGroup();
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+          {maxZoom: 20,
+          subdomains:['mt0','mt1','mt2','mt3'],
+          crs: L.CRS.EPSG3857,
+          attribution: "©2017 Google",
+          zIndex: 15
+          }).addTo(occurrence);
+
+        L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/occurrence/{z}/{x}/{y}.png",
+          { format: "image/png",
+            maxZoom: 20,
+            errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+            attribution: "2016 EC JRC/Google",
+            zIndex: 16
+          }).addTo(occurrence);
+
+        var change = new L.LayerGroup();
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+          {maxZoom: 20,
+          subdomains:['mt0','mt1','mt2','mt3'],
+          crs: L.CRS.EPSG3857,
+          attribution: "©2017 Google",
+          zIndex:13
+          }).addTo(change);
+
+        L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/change/{z}/{x}/{y}.png",
+          { format: "image/png",
+            maxZoom: 20,
+            errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+            attribution: "2016 EC JRC/Google",
+            zIndex: 14
+          }).addTo(change);
+
+        var seasonality = new L.LayerGroup();
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+          {maxZoom: 20,
+          subdomains:['mt0','mt1','mt2','mt3'],
+          crs: L.CRS.EPSG3857,
+          attribution: "©2017 Google",
+          zIndex: 11
+          }).addTo(seasonality);
+
+        L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/seasonality/{z}/{x}/{y}.png",
+          { format: "image/png",
+            maxZoom: 20,
+            errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+            attribution: "2016 EC JRC/Google",
+            zIndex: 12
+          }).addTo(seasonality);
+
+        var recurrence  = new L.LayerGroup();
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+          {maxZoom: 20,
+          subdomains:['mt0','mt1','mt2','mt3'],
+          crs: L.CRS.EPSG3857,
+          attribution: "©2017 Google",
+          zIndex: 9
+          }).addTo(recurrence);
+
+        L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/recurrence/{z}/{x}/{y}.png",
+          { format: "image/png",
+            maxZoom: 20,
+            errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+            attribution: "2016 EC JRC/Google",
+            zIndex: 10
+          }).addTo(recurrence);
+
+        var extent  = new L.LayerGroup();
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+          {maxZoom: 20,
+          subdomains:['mt0','mt1','mt2','mt3'],
+          crs: L.CRS.EPSG3857,
+          attribution: "©2017 Google",
+          zIndex: 7
+          }).addTo(extent);
+
+        L.tileLayer("https://storage.googleapis.com/global-surface-water/maptiles/extent/{z}/{x}/{y}.png",
+          { format: "image/png",
+            maxZoom: 20,
+            errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+            attribution: "2016 EC JRC/Google",
+            zIndex: 8
+          }).addTo(extent);
+
+          var forest_cover = new L.LayerGroup();
+
+           L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+             {maxZoom: 20,
+             subdomains:['mt0','mt1','mt2','mt3'],
+             crs: L.CRS.EPSG3857,
+             attribution: "©2017 Google",
+             zIndex: 5
+           }).addTo(forest_cover);
+
+           L.tileLayer('http://earthengine.google.org/static/hansen_2013/tree_alpha/{z}/{x}/{y}.png',
+           { format: "image/png",
+              maxZoom: 20,
+              attribution: "Hansen/UMD/Google/USGS/NASA",
+              zIndex: 6
+            }).addTo(forest_cover)
+
+            var forest_loss = new L.LayerGroup();
+
+             L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+               {maxZoom: 20,
+               subdomains:['mt0','mt1','mt2','mt3'],
+               crs: L.CRS.EPSG3857,
+               attribution: "©2017 Google",
+               zIndex: 3
+             }).addTo(forest_loss);
+
+             L.tileLayer('https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfc_v1.3/loss_alpha/{z}/{x}/{y}.png',
+             { format: "image/png",
+                maxZoom: 20,
+                attribution: "Hansen/UMD/Google/USGS/NASA",
+                zIndex: 4
+              }).addTo(forest_loss)
+
+        var forest_gain = new L.LayerGroup();
+
+         L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+           {maxZoom: 20,
+           subdomains:['mt0','mt1','mt2','mt3'],
+           crs: L.CRS.EPSG3857,
+           attribution: "©2017 Google",
+           zIndex: 1
+         }).addTo(forest_gain);
+
+         L.tileLayer('https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfc2015/gain_alpha/{z}/{x}/{y}.png',
+         { format: "image/png",
+            maxZoom: 20,
+            attribution: "Hansen/UMD/Google/USGS/NASA",
+            zIndex: 2
+          }).addTo(forest_gain)
+
+        var vectors = [
+                        {
+                          groupName: "Conservation Zones",
+                          layers: {"WWF Fish Conservation Zones": wwffcz, "WCS Crocodile Conservation Zones": croc}
+                        },{
+                          groupName: "National Geographic Deparment",
+                          layers: {"NGD Small Objects": cp_sm_ob, "NGD Built Up Area": built, "NGD Villages": ngd_village, "NGD Elevation Point": ngd_elev}
+                        },{
+                          groupName: "Ramsar Boundary",
+                          layers: {"Ramsar Boundary Existing": ramsar, "Ramsar Core Zone Existing": core_zone, "CAWA Ramsar Boundary Proposed": ramsar_proposed, "CAWA Core Zone Boundary Proposed": core_z_proposed}
+                        },{
+                          groupName: "CAWA Project",
+                          layers: {"CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment}
+                        },{
+                          groupName: "IUCN",
+                          layers: {"Bridge Survey": bridges, "Dam Survey": dams, "Canal Survey": canal, "Erosion Survey": erosion, "Pump Survey": pump, "Water Control Inf. Survey": water_control, "Well Survey": well}
+                        }
+                      ];
+
+        var imagery = [
+                        {
+                          groupName: "Imagery",
+                          layers: {"2011 NGD Orthophotos": ngd, "2015 Google Satellite": goog}
+                        },{
+                          groupName: "Global Surface Water",
+                          layers: {"Transitions": transitions, "Occurrence": occurrence,"Change": change, "Seasonality": seasonality, "Recurrence ": recurrence, "Extent": extent}
+                        },{
+                          groupName: "Global Forest Change",
+                          layers: {"Forest Cover 2000": forest_cover, "Forest Cover Loss": forest_loss, "Forest Cover Gain": forest_gain}
+                        }
+                      ];
+
+        var options = {
+                        collapsed : false,
+                        autoZIndex  :   false,
+                        container_width 	: "300px",
+                    		container_maxHeight : "400px",
+                    		group_maxHeight     : "80px",
+                    		exclusive       	: true
+                    	};
+
+        L.Control.styledLayerControl(imagery,vectors,options).addTo(map);
+      }
+      // you could use $(window).load(main);
+      window.onload = main;
+    </script>
+  </body>
+</html>
