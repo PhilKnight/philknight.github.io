@@ -9,8 +9,8 @@
 
     html, body, #map{
         height: 100%;
-        padding: 0;
-        margin-bottom: 25px;
+        padding: 10;
+        margin-bottom: 35px;
       }
 
       .navbar {
@@ -18,12 +18,15 @@
         position: fixed;
         bottom: 0;
         width: 100%;
+        height: 35px;
+        font-family: arial, sans-serif;
+        color: white;
+        font-weight: bold;
       }
 
       /* Popup container - can be anything you want */
       .popup {
         position: relative;
-        display: inline-block;
         cursor: pointer;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -43,20 +46,8 @@
         position: absolute;
         z-index: 1000;
         bottom: 125%;
-        left: 120%;
+        left: 95%;
         margin-left: -80px;
-      }
-
-      /* Popup arrow */
-      .popup .popuptext::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 100%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
       }
 
       /* Toggle this class - hide and show the popup */
@@ -112,7 +103,7 @@
   </head>
   <body>
     <div id="map" ></div>
-    <div class="navbar">
+    <div class="navbar">LEGENDS
       <button class="popup" onclick="transFunction()">Transitions
         <span class="popuptext" id="myPopup">
           <table style = "font-family: arial, sans-serif;border-collapse: collapse;width: 100%; font-size: 75%;">
@@ -186,7 +177,7 @@
             </tr>
             <tr>
             <td>100% increase in occurrence</td>
-            <td bgcolor=#00FF00 style = "padding: 10px;"></td>
+            <td bgcolor=#00FF00 style = "padding: 15px;"></td>
             </tr>
           </table>
         </span>
@@ -275,7 +266,7 @@
           sublayers: [{
             sql: 'select * from wcs_croc_conserv_zone',
             cartocss: '#layer { polygon-fill: #CC6550; polygon-opacity: 0.58; line-width: 1; line-color: #562218; line-opacity: 0.5;}',
-            interactivity: 'cartodb_id'
+            interactivity: ['cartodb_id', 'name']
             }]
           }).addTo(croc)
           .on('done', function(layer) {
@@ -283,6 +274,7 @@
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['name'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -638,9 +630,9 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from ngd_champhone_small_object',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, _desc as description, eng_name as name from ngd_champhone_small_object',
+            cartocss: '#layer { marker-width: 10; marker-fill: ramp([description], (#5F4690, #e48509, #38A6A5, #0F8554, #73AF48, #bf0101), ("School", "Buddhist Monastery", "Bridge (Length >= 3m)", "Dam (non-practicable)", "Dam (practicable)", "Airfield"), "="); marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'description', 'name']
             }]
           }).addTo(cp_sm_ob)
           .on('done', function(layer) {
@@ -648,18 +640,19 @@
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['description', 'name'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
-        var wwffcz = new L.LayerGroup();
+      var wwffcz = new L.LayerGroup();
 
         cartodb.createLayer(map, {
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from fcz_wwf',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, date_annou as date, fcz_area_h as area_ha, fcz_depth_ as depth_m, fcz_name_l as name, fcz_name_e as en_name, river_na_1 as river, river_name as en_river, vname_eng as en_village, vname_lao as village from fcz_wwf',
+            cartocss: '#layer { marker-width: 8; marker-fill: #EEBE7E; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 1; marker-line-color: #ffe9cc; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'date', 'area', 'depth', 'name', 'en-name', 'river', 'en-river', 'en-village', 'village']
             }]
           }).addTo(wwffcz)
           .on('done', function(layer) {
@@ -667,6 +660,7 @@
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['name', 'en_name', 'river', 'en_river', 'village', 'en_village', 'date', 'area_ha', 'depth_m'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -885,8 +879,8 @@
                         collapsed : false,
                         autoZIndex  :   false,
                         container_width 	: "300px",
-                    		container_maxHeight : "400px",
-                    		group_maxHeight     : "80px",
+                    		container_maxHeight : "1000px",
+                    		group_maxHeight     : "500px",
                     		exclusive       	: true
                     	};
 
