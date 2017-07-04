@@ -6,10 +6,99 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
     <style>
-      html, body, #map {
+
+    html, body, #map{
         height: 100%;
         padding: 0;
-        margin: 0;
+        margin-bottom: 25px;
+      }
+
+      .navbar {
+        background-color: #333;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+      /* Popup container - can be anything you want */
+      .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* The actual popup */
+      .popup .popuptext {
+        visibility: hidden;
+        width: 180px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1000;
+        bottom: 125%;
+        left: 120%;
+        margin-left: -80px;
+      }
+
+      /* Popup arrow */
+      .popup .popuptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 100%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+      }
+
+      /* Toggle this class - hide and show the popup */
+      .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s;
+      }
+
+      /* Add animation (fade in the popup) */
+      @-webkit-keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+
+      @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity:1 ;}
+      }
+
+      .linear-gradient {
+        background: linear-gradient(#0000FF, #FF0000);
+      }
+      .linear-gradient {
+          width:25px;
+          height:100px;
+      }
+
+      .linear-gradient-2 {
+        background: linear-gradient(#0000AA, #99D9EA);
+      }
+      .linear-gradient-2 {
+          width:25px;
+          height:100px;
+      }
+
+      .linear-gradient-3 {
+        background: linear-gradient(#99D9EA, #FF7F27);
+      }
+      .linear-gradient-3 {
+          width:25px;
+          height:100px;
       }
     </style>
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
@@ -19,9 +108,155 @@
     <!-- styled layer control -->
     <script src="src/styledLayerControl.js"></script>
 
+
   </head>
   <body>
-    <div id="map"></div>
+    <div id="map" ></div>
+    <div class="navbar">
+      <button class="popup" onclick="transFunction()">Transitions
+        <span class="popuptext" id="myPopup">
+          <table style = "font-family: arial, sans-serif;border-collapse: collapse;width: 100%; font-size: 75%;">
+            <tr>
+            <td>Permanent</td>
+            <td bgcolor=#0000dd style = "padding: 10px;"></td>
+            </tr>
+            <tr>
+            <td>New Permanent</td>
+            <td bgcolor=#21b14c style = "padding: 10px;"></td>
+            </tr>
+            <tr>
+            <td>Lost Permanent</td>
+            <td bgcolor=#93073e style = "padding: 10px;"></td>
+            </tr>
+            <tr>
+            <td>Seasonal</td>
+            <td bgcolor=#99d9ea style = "padding: 10px;"></td>
+            </tr>
+            <tr>
+            <td>New Seasonal</td>
+            <td bgcolor=#b5e51d style = "padding: 10px;"></td>
+            </tr>
+            <tr>
+            <td>Lost Seasonal</td>
+            <td bgcolor=#ebb3ba style = "padding: 10px;"></td>
+            </tr>
+            <tr>
+            <td>Seasonal to Permanent</td>
+            <td bgcolor=#ff8b37 style = "padding: 10px;"></td>
+            </tr>
+            <tr>
+            <td>Permanent to Seasonal</td>
+            <td bgcolor=#fedd66 style = "padding: 10px;"></td>
+            </tr>
+            <tr>
+            <td>Ephemeral to Permanent</td>
+            <td bgcolor=#7f7f7f style = "padding: 10px;"></td>
+            </tr>
+            <tr>
+            <td>Permanent to Ephemeral</td>
+            <td bgcolor=#acacac style = "padding: 10px;"></td>
+            </tr>
+          </table>
+        </span>
+      </button>
+      <button class="popup" onclick="occurFunction()">Occurance
+        <span class="popuptext" id="occurPopup">
+          <table style = "font-family: arial, sans-serif;border-collapse: collapse;width: 100%; font-size: 75%;">
+            <tr>
+            <td rowspan="2" >The frequency (% of months) with which water was present on the surface from March 1984 to October 2015</td>
+            <td>100%</td>
+            <td rowspan="2"><div class="linear-gradient"></div></td>
+            </tr>
+            <tr>
+            <td>1%</td>
+            </tr>
+          </table>
+        </span>
+      </button>
+      <button class="popup" onclick="changeFunction()">Change
+        <span class="popuptext" id="changePopup">
+          <table style = "font-family: arial, sans-serif;border-collapse: collapse;width: 100%; font-size: 75%;">
+            <tr>
+            <td>-100% loss of occurrence</td>
+            <td bgcolor=#FF0000 style = "padding: 15px;"></td>
+            </tr>
+            <tr>
+            <td>No change</td>
+            <td bgcolor=#000000 style = "padding: 15px;"></td>
+            </tr>
+            <tr>
+            <td>100% increase in occurrence</td>
+            <td bgcolor=#00FF00 style = "padding: 10px;"></td>
+            </tr>
+          </table>
+        </span>
+      </button>
+      <button class="popup" onclick="seasonFunction()">Seasonality
+        <span class="popuptext" id="seasonPopup">
+          <table style = "font-family: arial, sans-serif;border-collapse: collapse;width: 100%; font-size: 75%;">
+            <tr>
+            <td rowspan="2" >The number of months that water was present from October 2014 to October 2015</td>
+            <td>12 months of water</td>
+            <td rowspan="2"><div class="linear-gradient-2"></div></td>
+            </tr>
+            <tr>
+            <td>1 month of water</td>
+            </tr>
+          </table>
+        </span>
+      </button>
+      <button class="popup" onclick="recurFunction()">Recurrence
+        <span class="popuptext" id="recurPopup">
+          <table style = "font-family: arial, sans-serif;border-collapse: collapse;width: 100%; font-size: 75%;">
+            <tr>
+            <td rowspan="2" >The frequency with which water returns from years to year expressed as a percentage</td>
+            <td>100% recurrence</td>
+            <td rowspan="2"><div class="linear-gradient-3"></div></td>
+            </tr>
+            <tr>
+            <td>1% recurrence</td>
+            </tr>
+          </table>
+        </span>
+      </button>
+      <button class="popup" onclick="extentFunction()">Extent
+        <span class="popuptext" id="extentPopup">
+          <table style = "font-family: arial, sans-serif;border-collapse: collapse;width: 100%; font-size: 75%;">
+            <tr>
+            <td>Maximum Water Extent, water detected between 1984 and 2015</td>
+            <td>Water detected</td>
+            <td bgcolor=#6666FF style = "padding: 20px;"></td>
+          </table>
+        </span>
+      </button>
+    </div>
+
+    <script>
+    function transFunction() {
+      var popup = document.getElementById("myPopup");
+      popup.classList.toggle("show");
+      }
+    function occurFunction() {
+      var popup = document.getElementById("occurPopup");
+      popup.classList.toggle("show");
+      }
+    function changeFunction() {
+        var popup = document.getElementById("changePopup");
+        popup.classList.toggle("show");
+        }
+    function seasonFunction() {
+        var popup = document.getElementById("seasonPopup");
+        popup.classList.toggle("show");
+        }
+    function recurFunction() {
+        var popup = document.getElementById("recurPopup");
+        popup.classList.toggle("show");
+        }
+    function extentFunction() {
+        var popup = document.getElementById("extentPopup");
+        popup.classList.toggle("show");
+        }
+    </script>
 
 
     <script>
@@ -39,7 +274,7 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from wcs_croc_conserv_zone',
-            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            cartocss: '#layer { polygon-fill: #CC6550; polygon-opacity: 0.58; line-width: 1; line-color: #562218; line-opacity: 0.5;}',
             interactivity: 'cartodb_id'
             }]
           }).addTo(croc)
@@ -58,7 +293,7 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from ramsar_existing',
-            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            cartocss: '#layer { polygon-fill: #00A4E4; polygon-opacity: 0.58; line-width: 1; line-color: #0c475e; line-opacity: 0.5;}',
             interactivity: 'cartodb_id'
             }]
           }).addTo(ramsar)
@@ -77,7 +312,7 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from ramsar_core_zone',
-            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            cartocss: '#layer { polygon-fill: #EABFDA; polygon-opacity: 0.58; line-width: 1; line-color: #663353; line-opacity: 0.5;}',
             interactivity: 'cartodb_id'
             }]
           }).addTo(core_zone)
@@ -229,8 +464,8 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from encroach',
-            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
-            interactivity: 'cartodb_id'
+            cartocss: '#layer { polygon-fill: #AD72B5; polygon-opacity: 0.58; line-width: 1; line-color: #481a4f; line-opacity: 0.5;}',
+            interactivity: ['cartodb_id', 'hectares']
             }]
           }).addTo(encroachment)
           .on('done', function(layer) {
@@ -238,6 +473,7 @@
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['hectares'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -248,8 +484,8 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from cawa_survey_grid',
-            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
-            interactivity: 'cartodb_id'
+            cartocss: '#layer { polygon-fill: #CA6203; polygon-opacity: 0.58; line-width: 1; line-color: #4f2c0c; line-opacity: 0.5;}',
+            interactivity: ['cartodb_id', 'gid']
             }]
           }).addTo(grid)
           .on('done', function(layer) {
@@ -257,6 +493,7 @@
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['gid'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -268,7 +505,7 @@
           sublayers: [{
             sql: 'select * from cawa_mimosa_pigra_survey',
             cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            interactivity: ['cartodb_id', 'id']
             }]
           }).addTo(mimosa)
           .on('done', function(layer) {
@@ -276,8 +513,29 @@
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['id'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
+
+          var monkey = new L.LayerGroup();
+
+          cartodb.createLayer(map, {
+            user_name: 'cawa',
+            type: 'cartodb',
+            sublayers: [{
+              sql: 'select * from monkey_forest',
+              cartocss: '#layer { polygon-fill: #784860; polygon-opacity: 0.58; line-width: 1; line-color: #604860; line-opacity: 0.5;}',
+              interactivity: ['cartodb_id', 'area_ha']
+              }]
+            }).addTo(monkey)
+            .on('done', function(layer) {
+              layer.setZIndex(20);
+              layer.setInteraction(true);
+              layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+              layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+              cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['area_ha'])
+            })
+            .on('error', function() {cartodb.log.log("some error occurred");});
 
         var core_z_proposed = new L.LayerGroup();
 
@@ -286,7 +544,7 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from cawa_core_zone_proposed',
-            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            cartocss: '#layer { polygon-fill: #F4F134; polygon-opacity: 0.40; line-width: 1; line-color: #77760d; line-opacity: 0.5;}',
             interactivity: 'cartodb_id'
             }]
           }).addTo(core_z_proposed)
@@ -305,7 +563,7 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from cawa_ramsar_proposed',
-            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            cartocss: '#layer { polygon-fill: #A4651E; polygon-opacity: 0.58; line-width: 1; line-color: #59350d; line-opacity: 0.5;}',
             interactivity: 'cartodb_id'
             }]
           }).addTo(ramsar_proposed)
@@ -603,7 +861,7 @@
                           layers: {"Ramsar Boundary Existing": ramsar, "Ramsar Core Zone Existing": core_zone, "CAWA Ramsar Boundary Proposed": ramsar_proposed, "CAWA Core Zone Boundary Proposed": core_z_proposed}
                         },{
                           groupName: "CAWA Project",
-                          layers: {"CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment}
+                          layers: {"CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment, "Monkey Forest Boundary": monkey}
                         },{
                           groupName: "IUCN",
                           layers: {"Bridge Survey": bridges, "Dam Survey": dams, "Canal Survey": canal, "Erosion Survey": erosion, "Pump Survey": pump, "Water Control Inf. Survey": water_control, "Well Survey": well}
@@ -633,9 +891,11 @@
                     	};
 
         L.Control.styledLayerControl(imagery,vectors,options).addTo(map);
+
       }
       // you could use $(window).load(main);
       window.onload = main;
     </script>
+
   </body>
 </html>
