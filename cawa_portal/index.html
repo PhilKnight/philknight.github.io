@@ -270,7 +270,7 @@
             }]
           }).addTo(croc)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -290,7 +290,7 @@
             }]
           }).addTo(ramsar)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -309,7 +309,7 @@
             }]
           }).addTo(core_zone)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -322,16 +322,17 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from iucn_well',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, title, desc_long as description, condition_ as condition, management, pictures, use_type as uses, extract_me as method, ownership, maintenanc as maintenance, maint_cost as cost, install_no as installation, type_well as type, notes, pump_capac as capacity, well_width as width, well_depth as depth from iucn_well',
+            cartocss: '#layer { marker-width: 7; marker-fill: #75b63f; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'title', 'description', 'condition', 'management', 'pictures', 'uses', 'method', 'ownership', 'maintenance', 'cost', 'installation', 'condition', 'type', 'notes', 'capacity', 'width', 'depth']
             }]
           }).addTo(well)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['title', 'description', 'condition', 'management', 'pictures', 'uses', 'method', 'ownership', 'maintenance', 'cost', 'installation', 'condition', 'type', 'notes', 'capacity', 'width', 'depth'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -341,16 +342,17 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from iucn_water_control',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, title, descriptio as description from iucn_water_control',
+            cartocss: '#layer { marker-width: 7; marker-fill: #fe5a3c; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'title', 'description']
             }]
           }).addTo(water_control)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['title', 'description'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -360,16 +362,17 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from iucn_pump',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, pictures, hours, water_vol_ as volume, management, ownership, maintena_1 as costs, maintenanc as maintenance, install_no as installation, condition_ as condition, type_inf_1  as type, notes, desc_long as description, title, pump_capac as capacity, maint_cost as expenses, install_da  as install_date from iucn_pump',
+            cartocss: '#layer { marker-width: 7; marker-fill: #a4651e; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'title', 'pictures', 'hours', 'volume', 'management', 'ownership', 'costs', 'maintenance', 'installation', 'condition', 'type', 'notes', 'description', 'capacity', 'expenses','install_date']
             }]
           }).addTo(pump)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['title', 'description', 'pictures', 'hours', 'volume', 'management', 'ownership', 'costs', 'maintenance', 'installation', 'condition', 'type', 'notes', 'capacity', 'expenses','install_date'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -379,16 +382,17 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from iucn_erosion',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, title, descriptio as description from iucn_erosion',
+            cartocss: '#layer { marker-width: 7; marker-fill: #ff8b3f; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'title', 'description']
             }]
           }).addTo(erosion)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['title', 'description'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -398,16 +402,17 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from iucn_canal',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, title, desc_long as description, type_canal as type, pictures, gates_open as opening, management, condition_ as condition, ownership, install_no as installation, notes, canal_leng as length, canal_widt as width from iucn_canal',
+            cartocss: '#layer { marker-width: 7; marker-fill: #cdd768; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'title', 'description', 'type', 'pictures', 'opening', 'management', 'condition', 'ownership', 'installation', 'notes', 'length', 'width']
             }]
           }).addTo(canal)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['title', 'description', 'type', 'pictures', 'opening', 'management', 'condition', 'ownership', 'installation', 'notes', 'length', 'width'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -417,16 +422,17 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from iucn_dam',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, title, desc_long as description, type_dam as type, pictures, gates_open as opening, water_cont as method, road, material, management, condition_ as condition, ownership, maintena_1 as maintenance, install_no as installation, notes, dam_height as height, dam_length as length, dam_width_ as width from iucn_dam',
+            cartocss: '#layer { marker-width: 7; marker-fill: #7b7464; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'title', 'description', 'type', 'pictures', 'opening', 'method', 'road', 'material', 'management', 'condition', 'ownership', 'maintenance', 'installation', 'notes', 'height', 'length', 'width']
             }]
           }).addTo(dams)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['title', 'description', 'type', 'pictures', 'opening', 'method', 'road', 'material', 'management', 'condition', 'ownership', 'maintenance', 'installation', 'notes', 'height', 'length', 'width'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -436,16 +442,17 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from iucn_bridges',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator,title, desc_long as description, install, maintenanc as maintenance, ownership, management, condition, type_bridg as type, materials, spans, pictures from iucn_bridges',
+            cartocss: '#layer { marker-width: 7; marker-fill: #06a2e2; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'title', 'description', 'install', 'maintenance', 'ownership', 'management', 'condition', 'type', 'materials', 'spans', 'pictures']
             }]
           }).addTo(bridges)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['title', 'description', 'install', 'maintenance', 'ownership', 'management', 'condition', 'type', 'materials', 'spans', 'pictures'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -461,7 +468,7 @@
             }]
           }).addTo(encroachment)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -481,7 +488,7 @@
             }]
           }).addTo(grid)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -496,12 +503,12 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from cawa_mimosa_pigra_survey',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            cartocss: '#layer { marker-width: 7; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1;}',
             interactivity: ['cartodb_id', 'id']
             }]
           }).addTo(mimosa)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -521,7 +528,7 @@
               }]
             }).addTo(monkey)
             .on('done', function(layer) {
-              layer.setZIndex(20);
+              layer.setZIndex(25);
               layer.setInteraction(true);
               layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
               layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -541,7 +548,7 @@
             }]
           }).addTo(core_z_proposed)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -560,7 +567,7 @@
             }]
           }).addTo(ramsar_proposed)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -573,16 +580,17 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from ngd_elevation_points',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, _desc as description, elevation from ngd_elevation_points',
+            cartocss: '#layer {marker-width: 7; marker-fill: ramp([description], (#F73737, #FFFF00), ("Spot Height", "Geodetic Point"), "="); marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 0.60; marker-line-color: #E1DAC5; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'description', 'elevation']
             }]
           }).addTo(ngd_elev)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['description', 'elevation'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -592,16 +600,17 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from ngd_champhone_villages',
-            cartocss: '#layer { marker-width: 10; marker-fill: #5252c4; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
-            interactivity: 'cartodb_id'
+            sql: 'select the_geom_webmercator, kum_code, kname as kumban, vname as village from ngd_champhone_villages',
+            cartocss: '#layer {marker-width: 7; marker-fill: ramp([kum_code], (#5F4690, #1D6996, #38A6A5, #0F8554, #73AF48, #EDAD08, #E17C05, #CC503E, #94346E, #6F4070, #666666), ("130905", "130901", "130907", "130908", "130912", "130903", "130902", "130906", "130904", "130909"), "="); marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 0.60; marker-line-color: #E1DAC5; marker-line-opacity: 1;}',
+            interactivity: ['cartodb_id', 'kumban', 'kumcode','village']
             }]
           }).addTo(ngd_village)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['kumban', 'village'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -612,12 +621,12 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from ngd_champhone_built_up_area',
-            cartocss: '#layer { polygon-fill: #30df58; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
+            cartocss: '#layer { polygon-fill: #93918E; polygon-opacity: 0.58; line-width: 1; line-color: #084608; line-opacity: 0.5;}',
             interactivity: 'cartodb_id'
             }]
           }).addTo(built)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -631,12 +640,12 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select the_geom_webmercator, _desc as description, eng_name as name from ngd_champhone_small_object',
-            cartocss: '#layer { marker-width: 10; marker-fill: ramp([description], (#5F4690, #e48509, #38A6A5, #0F8554, #73AF48, #bf0101), ("School", "Buddhist Monastery", "Bridge (Length >= 3m)", "Dam (non-practicable)", "Dam (practicable)", "Airfield"), "="); marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #FFF; marker-line-opacity: 1;}',
+            cartocss: '#layer { marker-width: 7; marker-fill: ramp([description], (#5F4690, #e48509, #38A6A5, #0F8554, #73AF48, #bf0101), ("School", "Buddhist Monastery", "Bridge (Length >= 3m)", "Dam (non-practicable)", "Dam (practicable)", "Airfield"), "="); marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1;}',
             interactivity: ['cartodb_id', 'description', 'name']
             }]
           }).addTo(cp_sm_ob)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -651,18 +660,36 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select the_geom_webmercator, date_annou as date, fcz_area_h as area_ha, fcz_depth_ as depth_m, fcz_name_l as name, fcz_name_e as en_name, river_na_1 as river, river_name as en_river, vname_eng as en_village, vname_lao as village from fcz_wwf',
-            cartocss: '#layer { marker-width: 8; marker-fill: #EEBE7E; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 1; marker-line-color: #ffe9cc; marker-line-opacity: 1;}',
+            cartocss: '#layer { marker-width: 7; marker-fill: #EEBE7E; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 1; marker-line-color: #ffe9cc; marker-line-opacity: 1;}',
             interactivity: ['cartodb_id', 'date', 'area', 'depth', 'name', 'en-name', 'river', 'en-river', 'en-village', 'village']
             }]
           }).addTo(wwffcz)
           .on('done', function(layer) {
-            layer.setZIndex(20);
+            layer.setZIndex(25);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
             cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['name', 'en_name', 'river', 'en_river', 'village', 'en_village', 'date', 'area_ha', 'depth_m'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var ngd_hydro = new L.LayerGroup();
+
+        L.tileLayer('http://korona.geog.uni-heidelberg.de/tiles/asterh/x={x}&y={y}&z={z}',
+          {maxZoom: 20,
+          subdomains:['mt0','mt1','mt2','mt3'],
+          crs: L.CRS.EPSG3857,
+          attribution: "SRTM, ASTER GDEM is a product of METI and NASA, Imagery GIScience Research Group @ Heidelberg University",
+          zIndex: 21
+          }).addTo(ngd_hydro);
+
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cj4ry290n2bkq2rp7avkidqz4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+          {format: "image/png",
+          maxZoom: 20,
+          errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
+          attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+          zIndex: 22
+        }).addTo(ngd_hydro);
 
         var ngd = new L.LayerGroup();
 
@@ -682,7 +709,9 @@
         crs: L.CRS.EPSG3857,
         attribution: "©2017 Google",
         zIndex: 0
-      }).addTo(map, goog);
+        }).addTo(map, goog);
+
+
 
         var transitions = new L.LayerGroup();
 
@@ -872,6 +901,9 @@
                         },{
                           groupName: "Global Forest Change",
                           layers: {"Forest Cover 2000": forest_cover, "Forest Cover Loss": forest_loss, "Forest Cover Gain": forest_gain}
+                        },{
+                          groupName: "Alternative Basemaps",
+                          layers: {"NGD Hydrography + Elevation": ngd_hydro}
                         }
                       ];
 
