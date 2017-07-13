@@ -103,7 +103,7 @@
   </head>
   <body>
     <div id="map" ></div>
-    <div class="navbar">LEGENDS
+    <div class="navbar">GSW LEGENDS
       <button class="popup" onclick="transFunction()">Transitions
         <span class="popuptext" id="myPopup">
           <table style = "font-family: arial, sans-serif;border-collapse: collapse;width: 100%; font-size: 75%;">
@@ -218,6 +218,30 @@
             <td>Maximum Water Extent, water detected between 1984 and 2015</td>
             <td>Water detected</td>
             <td bgcolor=#6666FF style = "padding: 20px;"></td>
+            </tr>
+          </table>
+        </span>
+      </button>
+      GET THE DATA
+      </button>
+      <button align="right" class="popup" onclick="extentFunction()">DATA
+        <span class="popuptext" id="dataPopup">
+          <table style = "font-family: arial, sans-serif;border-collapse: collapse;width: 100%; font-size: 100%;">
+            <tr>
+            <td><a href = "http://www.ngd.la/?p=1378&lang=en" target="_blank">NGD Orthophotos<a></td>
+            </tr>
+            <tr>
+            <td><a href = "https://global-surface-water.appspot.com/download" target="_blank">Global Surface Water<a></td>
+            </tr>
+            <tr>
+            <td><a href = "https://earthenginepartners.appspot.com/science-2013-global-forest/download_v1.2.html" target="_blank">Global Forest Cover<a></td>
+            </tr>
+            <tr>
+            <td><a href = "https://www.dropbox.com/sh/y7flrclbrrcdz43/AAD0dBeSIN1gjutdOicqXxe3a/XCP?dl=0" target="_blank">IUCN<a></td>
+            </tr>
+            <tr>
+            <td><a href = "https://cawa.carto.com/datasets" target="_blank">CAWA, WWF + WCS<a></td>
+            </tr>
           </table>
         </span>
       </button>
@@ -246,6 +270,10 @@
         }
     function extentFunction() {
         var popup = document.getElementById("extentPopup");
+        popup.classList.toggle("show");
+        }
+    function extentFunction() {
+        var popup = document.getElementById("dataPopup");
         popup.classList.toggle("show");
         }
     </script>
