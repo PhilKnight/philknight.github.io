@@ -287,6 +287,68 @@
           zoom: 10
         });
 
+        var cfp = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from cfp_ban_phaleng',
+            cartocss: '#layer { polygon-fill: #1aefe5; polygon-opacity: 0.58; line-width: 1; line-color: #809e9c; line-opacity: 0.5;}',
+            interactivity: ['cartodb_id', 'vname_en', 'vname_lao']
+            }]
+          }).addTo(cfp)
+          .on('done', function(layer) {
+            layer.setZIndex(25);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['vname_en', 'vname_lao'])
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+
+        var mp_pilot = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from cawa_mimosa_pigra_pilot',
+            cartocss: '#layer { polygon-fill: #d3379f; polygon-opacity: 0.58; line-width: 1; line-color: #5b0b41; line-opacity: 0.5;}',
+            interactivity: ['cartodb_id', 'hectares']
+            }]
+          }).addTo(mp_pilot)
+          .on('done', function(layer) {
+            layer.setZIndex(25);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['hectares'])
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+        var cawa_fcz = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from cawa_xcp_fcz',
+            cartocss: '#layer { polygon-fill: #EEBE7E; polygon-opacity: 0.58; line-width: 1; line-color: #ce7b0c; line-opacity: 0.5;}',
+            interactivity: ['cartodb_id', 'vname_en']
+            }]
+          }).addTo(cawa_fcz)
+          .on('done', function(layer) {
+            layer.setZIndex(25);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['vname_en'])
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
+
         var croc = new L.LayerGroup();
 
         cartodb.createLayer(map, {
@@ -913,7 +975,7 @@
                           layers: {"Ramsar Boundary Existing": ramsar, "Ramsar Core Zone Existing": core_zone, "CAWA Ramsar Boundary Proposed": ramsar_proposed, "CAWA Core Zone Boundary Proposed": core_z_proposed}
                         },{
                           groupName: "CAWA Project",
-                          layers: {"CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment, "Monkey Forest Boundary": monkey}
+                          layers: {"CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment, "Monkey Forest Boundary": monkey, "CAWA Fish Conservation Zones": cawa_fcz, "CAWA Mimosa pigra Control Pilot": mp_pilot, "Community Fish Pond": cfp}
                         },{
                           groupName: "IUCN",
                           layers: {"Bridge Survey": bridges, "Dam Survey": dams, "Canal Survey": canal, "Erosion Survey": erosion, "Pump Survey": pump, "Water Control Inf. Survey": water_control, "Well Survey": well}
