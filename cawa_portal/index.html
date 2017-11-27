@@ -963,6 +963,24 @@
             zIndex: 2
           }).addTo(forest_gain)
 
+         var cropland = new L.LayerGroup();
+
+         L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+           {maxZoom: 20,
+           subdomains:['mt0','mt1','mt2','mt3'],
+           crs: L.CRS.EPSG3857,
+           attribution: "©2017 Google",
+           zIndex: 1
+         }).addTo(cropland);
+
+         L.tileLayer('https://{s}.tiles.croplands.org/{z}/{x}/{y}/tile.png?collection=users/croplandsdev/products&id=World30m_30m_L1_v20170722&band=class',
+          {maxZoom: 20,
+          crs: L.CRS.EPSG3857,
+          attribution: "Thenkabail/USGS/NASA",
+          zIndex: 2
+          }).addTo(cropland);
+
+
         var vectors = [
                         {
                           groupName: "Conservation Zones",
@@ -985,7 +1003,7 @@
         var imagery = [
                         {
                           groupName: "Imagery",
-                          layers: {"2011 NGD Orthophotos": ngd, "2015 Google Satellite": goog}
+                          layers: {"2015 Google Satellite": goog}
                         },{
                           groupName: "Global Surface Water",
                           layers: {"Transitions": transitions, "Occurrence": occurrence,"Change": change, "Seasonality": seasonality, "Recurrence ": recurrence, "Extent": extent}
@@ -993,8 +1011,8 @@
                           groupName: "Global Forest Change",
                           layers: {"Forest Cover 2000": forest_cover, "Forest Cover Loss": forest_loss, "Forest Cover Gain": forest_gain}
                         },{
-                          groupName: "Alternative Basemaps",
-                          layers: {"NGD Hydrography + Elevation": ngd_hydro}
+                          groupName: "Global Cropland",
+                          layers: {"Cropland Extent 2015": cropland}
                         }
                       ];
 
