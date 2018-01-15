@@ -767,23 +767,16 @@
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
-        var ngd_hydro = new L.LayerGroup();
+        var drone_test = new L.LayerGroup();
 
-        L.tileLayer('http://korona.geog.uni-heidelberg.de/tiles/asterh/x={x}&y={y}&z={z}',
-          {maxZoom: 20,
-          subdomains:['mt0','mt1','mt2','mt3'],
-          crs: L.CRS.EPSG3857,
-          attribution: "SRTM, ASTER GDEM is a product of METI and NASA, Imagery GIScience Research Group @ Heidelberg University",
-          zIndex: 21
-          }).addTo(ngd_hydro);
-
-        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cj4ry290n2bkq2rp7avkidqz4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjcfl4i8256aq2sphznk87kq0/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
           {format: "image/png",
-          maxZoom: 13,
+          maxZoom: 30,
+          minZoom:16,
           errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
           attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
           zIndex: 22
-        }).addTo(ngd_hydro);
+        }).addTo(drone_test);
 
         var ngd = new L.LayerGroup();
 
@@ -1016,6 +1009,9 @@
                         },{
                           groupName: "Global Cropland",
                           layers: {"Cropland Extent 2015": cropland}
+                        },{
+                          groupName: "Drone Imagery",
+                          layers:{"December 2017": drone_test}
                         }
                       ];
 
