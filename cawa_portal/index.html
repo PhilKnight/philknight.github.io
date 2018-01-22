@@ -287,7 +287,8 @@
         {
         var map = new L.Map('map', {
           center: [16.3739, 105.2106],
-          zoom: 10
+          zoom: 11,
+          maxZoom: 22
         });
 
         var cfp = new L.LayerGroup();
@@ -302,7 +303,7 @@
             }]
           }).addTo(cfp)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -323,7 +324,7 @@
             }]
           }).addTo(mp_pilot)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -343,7 +344,7 @@
             }]
           }).addTo(cawa_fcz)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -364,7 +365,7 @@
             }]
           }).addTo(croc)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -384,7 +385,7 @@
             }]
           }).addTo(ramsar)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -403,7 +404,7 @@
             }]
           }).addTo(core_zone)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -422,7 +423,7 @@
             }]
           }).addTo(well)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -442,7 +443,7 @@
             }]
           }).addTo(water_control)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -462,7 +463,7 @@
             }]
           }).addTo(pump)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -482,7 +483,7 @@
             }]
           }).addTo(erosion)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -502,7 +503,7 @@
             }]
           }).addTo(canal)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -522,7 +523,7 @@
             }]
           }).addTo(dams)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -542,7 +543,7 @@
             }]
           }).addTo(bridges)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -562,7 +563,7 @@
             }]
           }).addTo(encroachment)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -582,7 +583,7 @@
             }]
           }).addTo(grid)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -602,7 +603,7 @@
             }]
           }).addTo(mimosa)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -622,7 +623,7 @@
               }]
             }).addTo(monkey)
             .on('done', function(layer) {
-              layer.setZIndex(25);
+              layer.setZIndex(22);
               layer.setInteraction(true);
               layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
               layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -642,7 +643,7 @@
             }]
           }).addTo(core_z_proposed)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -661,7 +662,7 @@
             }]
           }).addTo(ramsar_proposed)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -680,7 +681,7 @@
             }]
           }).addTo(ngd_elev)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -700,7 +701,7 @@
             }]
           }).addTo(ngd_village)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -720,7 +721,7 @@
             }]
           }).addTo(built)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -739,7 +740,7 @@
             }]
           }).addTo(cp_sm_ob)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -759,7 +760,7 @@
             }]
           }).addTo(wwffcz)
           .on('done', function(layer) {
-            layer.setZIndex(25);
+            layer.setZIndex(22);
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
@@ -767,15 +768,42 @@
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
+        var drone_survey = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from mp_svk_drone_survey_extents',
+            cartocss: '#layer { polygon-fill: #A4651E; polygon-opacity: 0; line-width: 2; line-color: #320C01; line-opacity: 1; line-dasharray: 2,1}',
+            interactivity: ['cartodb_id', 'name', 'cawa_id']
+            }]
+          }).addTo(drone_survey)
+          .on('done', function(layer) {
+            layer.setZIndex(22);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['name', 'cawa_id'])
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
         var drone_test = new L.LayerGroup();
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+        {maxZoom: 22,
+        subdomains:['mt0','mt1','mt2','mt3'],
+        crs: L.CRS.EPSG3857,
+        attribution: "©2017 Google",
+        zIndex: 1
+        }).addTo(drone_test);
 
         L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjcfl4i8256aq2sphznk87kq0/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
           {format: "image/png",
-          maxZoom: 30,
+          maxZoom: 22,
           minZoom:16,
-          errorTileUrl : "https://storage.googleapis.com/global-surface-water/downloads_ancillary/blank.png",
           attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
-          zIndex: 22
+          zIndex: 2
         }).addTo(drone_test);
 
         var ngd = new L.LayerGroup();
@@ -791,7 +819,7 @@
         var goog = new L.LayerGroup();
 
         L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-        {maxZoom: 20,
+        {maxZoom: 22,
         subdomains:['mt0','mt1','mt2','mt3'],
         crs: L.CRS.EPSG3857,
         attribution: "©2017 Google",
@@ -979,6 +1007,9 @@
 
         var vectors = [
                         {
+                          groupName: "Drone Survey Sites",
+                          layers: {"Drone Surveys": drone_survey}
+                        },{
                           groupName: "Conservation Zones",
                           layers: {"WWF Fish Conservation Zones": wwffcz, "WCS Crocodile Conservation Zones": croc}
                         },{
@@ -995,11 +1026,10 @@
                           layers: {"Bridge Survey": bridges, "Dam Survey": dams, "Canal Survey": canal, "Erosion Survey": erosion, "Pump Survey": pump, "Water Control Inf. Survey": water_control, "Well Survey": well}
                         }
                       ];
-
         var imagery = [
                         {
-                          groupName: "Imagery",
-                          layers: {"2015 Google Satellite": goog}
+                          groupName: "Basemaps",
+                          layers:{"Google Satellite": goog}
                         },{
                           groupName: "Global Surface Water",
                           layers: {"Transitions": transitions, "Occurrence": occurrence,"Change": change, "Seasonality": seasonality, "Recurrence ": recurrence, "Extent": extent}
@@ -1011,7 +1041,7 @@
                           layers: {"Cropland Extent 2015": cropland}
                         },{
                           groupName: "Drone Imagery",
-                          layers:{"December 2017": drone_test}
+                          layers:{"Drone Imagery": drone_test}
                         }
                       ];
 
