@@ -650,6 +650,26 @@
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
+        var dyke = new L.LayerGroup();
+
+          cartodb.createLayer(map, {
+            user_name: 'cawa',
+            type: 'cartodb',
+            sublayers: [{
+              sql: 'select * from phai_jiew_makmee_dyke',
+              cartocss: '#layer {::case {line-width: 5; line-color:#d83;}::fill {line-width: 2.5; line-color:#fe3;}}',
+              interactivity: 'cartodb_id'
+              }]
+            }).addTo(dyke)
+            .on('done', function(layer) {
+              layer.setZIndex(22);
+              layer.setInteraction(true);
+              layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+              layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            })
+            .on('error', function() {cartodb.log.log("some error occurred");});
+
+
         var ramsar_proposed = new L.LayerGroup();
 
         cartodb.createLayer(map, {
@@ -1020,7 +1040,7 @@
                           layers: {"Ramsar Boundary Existing": ramsar, "Ramsar Core Zone Existing": core_zone, "CAWA Ramsar Boundary Proposed": ramsar_proposed, "CAWA Core Zone Boundary Proposed": core_z_proposed}
                         },{
                           groupName: "CAWA Project",
-                          layers: {"CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment, "Monkey Forest Boundary": monkey, "CAWA Fish Conservation Zones": cawa_fcz, "CAWA Mimosa pigra Control Pilot": mp_pilot, "Community Fish Pond": cfp}
+                          layers: {"CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment, "Monkey Forest Boundary": monkey, "CAWA Fish Conservation Zones": cawa_fcz, "CAWA Mimosa pigra Control Pilot": mp_pilot, "Community Fish Pond": cfp, "Eco-Tourism Route (?)": dyke}
                         },{
                           groupName: "IUCN",
                           layers: {"Bridge Survey": bridges, "Dam Survey": dams, "Canal Survey": canal, "Erosion Survey": erosion, "Pump Survey": pump, "Water Control Inf. Survey": water_control, "Well Survey": well}
