@@ -810,21 +810,45 @@
 
         var drone_test = new L.LayerGroup();
 
-        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-        {maxZoom: 22,
-        subdomains:['mt0','mt1','mt2','mt3'],
-        crs: L.CRS.EPSG3857,
-        attribution: "©2017 Google",
-        zIndex: 1
-        }).addTo(drone_test);
-
-        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjcfl4i8256aq2sphznk87kq0/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjdxw6iyi1ib52speq5gwqq05/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
           {format: "image/png",
           maxZoom: 22,
-          minZoom:16,
+          minZoom: 0,
           attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
           zIndex: 2
         }).addTo(drone_test);
+
+        var  iard = new L.LayerGroup();
+
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjdx6an7g7ory2sjow6cw0c4u/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+          {format: "image/png",
+          maxZoom: 22,
+          minZoom: 0,
+          attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+          zIndex: 2
+        }).addTo(iard);
+
+        var dong_savang_sat = new L.LayerGroup();
+
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjdx5oqkp7o7x2sjokj2sxmyu/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+          {format: "image/png",
+          maxZoom: 22,
+          minZoom: 0,
+          attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+          zIndex: 2
+        }).addTo(dong_savang_sat);
+
+        var dong_savang_topo = new L.LayerGroup();
+
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjdx651qw7owu2snn259p51n3/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+          {format: "image/png",
+          maxZoom: 22,
+          minZoom: 0,
+          attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+          zIndex: 2
+        }).addTo(dong_savang_topo);
+
+        
 
         var ngd = new L.LayerGroup();
 
@@ -1059,6 +1083,9 @@
                         },{
                           groupName: "Global Cropland",
                           layers: {"Cropland Extent 2015": cropland}
+                        },{
+                          groupName: "Irrigation Maps",
+                          layers:{"IARD": iard, "Dong Savang Thong Satellite": dong_savang_sat, "Dong Savang Thong Topographic": dong_savang_topo }
                         },{
                           groupName: "Drone Imagery",
                           layers:{"Drone Imagery": drone_test}
