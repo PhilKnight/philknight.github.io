@@ -848,6 +848,35 @@
           zIndex: 2
         }).addTo(dong_savang_topo);
 
+        var all_champhone_irri_topo = new L.LayerGroup();
+
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjdzdca766pvf2rpfvqw6sghd/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+          {format: "image/png",
+          maxZoom: 22,
+          minZoom: 0,
+          attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+          zIndex: 2
+        }).addTo(all_champhone_irri_topo);
+
+        var all_champhone_irri_lc = new L.LayerGroup();
+
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjdzdx7o56e522sqk8nz9gf74/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+          {format: "image/png",
+          maxZoom: 22,
+          minZoom: 0,
+          attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+          zIndex: 2
+        }).addTo(all_champhone_irri_lc);
+
+        var all_champhone_irri_sat = new L.LayerGroup();
+
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjdzdzcnu6mqf2tk47a2y3qd6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+          {format: "image/png",
+          maxZoom: 22,
+          minZoom: 0,
+          attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+          zIndex: 2
+        }).addTo(all_champhone_irri_sat);
         
 
         var ngd = new L.LayerGroup();
@@ -1085,7 +1114,7 @@
                           layers: {"Cropland Extent 2015": cropland}
                         },{
                           groupName: "Irrigation Maps",
-                          layers:{"IARD": iard, "Dong Savang Thong Satellite": dong_savang_sat, "Dong Savang Thong Topographic": dong_savang_topo }
+                          layers:{"IARD": iard, "Dong Savang Thong Satellite": dong_savang_sat, "Dong Savang Thong Topographic": dong_savang_topo, "Champhone & Xonbouli Topo": all_champhone_irri_topo, "Champhone & Xonbouli Land Cover": all_champhone_irri_lc, "Champhone & Xonbouli Satellite": all_champhone_irri_sat}
                         },{
                           groupName: "Drone Imagery",
                           layers:{"Drone Imagery": drone_test}
