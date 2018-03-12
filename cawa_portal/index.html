@@ -311,7 +311,24 @@
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
+        var flood = new L.LayerGroup();
 
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from xcp_mekong_2010_major_inundation',
+            cartocss: '#layer { polygon-fill: #9B9DD9; polygon-opacity: 0.45; line-width: 1; line-color: #9B9DD9; line-opacity: 0.8;}'
+            }]
+          }).addTo(flood)
+          .on('done', function(layer) {
+            layer.setZIndex(22);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+        
         var mp_pilot = new L.LayerGroup();
 
         cartodb.createLayer(map, {
@@ -1095,6 +1112,9 @@
                         },{
                           groupName: "Conservation Zones",
                           layers: {"WWF Fish Conservation Zones": wwffcz, "WCS Crocodile Conservation Zones": croc}
+                        },{
+                          groupName: "MRC Flood",
+                          layers: {"Inundation Extent Year 2000": flood}
                         },{
                           groupName: "National Geographic Deparment",
                           layers: {"NGD Small Objects": cp_sm_ob, "NGD Built Up Area": built, "NGD Villages": ngd_village, "NGD Elevation Point": ngd_elev}
