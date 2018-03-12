@@ -818,6 +818,16 @@
           zIndex: 2
         }).addTo(drone_test);
 
+        var drone_survey2 = new L.LayerGroup();
+
+        L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjennzpzae4c42so2k3ui4jmf/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
+          {format: "image/png",
+          maxZoom: 22,
+          minZoom: 0,
+          attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+          zIndex: 2
+        }).addTo(drone_survey2);
+
         var  iard = new L.LayerGroup();
 
         L.tileLayer("https://api.mapbox.com/styles/v1/philknight/cjdx6an7g7ory2sjow6cw0c4u/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGhpbGtuaWdodCIsImEiOiI3NzIwOGJlMGU5M2NhODA3NjJhNmNlZTQxZTNkZWY4YyJ9.Wqxpbl4-w_Qj6H8mSzyNLw",
@@ -1117,7 +1127,7 @@
                           layers:{"IARD": iard, "Dong Savang Thong Satellite": dong_savang_sat, "Dong Savang Thong Topographic": dong_savang_topo, "Champhone & Xonbouli Topo": all_champhone_irri_topo, "Champhone & Xonbouli Land Cover": all_champhone_irri_lc, "Champhone & Xonbouli Satellite": all_champhone_irri_sat}
                         },{
                           groupName: "Drone Imagery",
-                          layers:{"Drone Imagery": drone_test}
+                          layers:{"Dec-Jan 2017/18": drone_test, "March 2018": drone_survey2}
                         }
                       ];
 
