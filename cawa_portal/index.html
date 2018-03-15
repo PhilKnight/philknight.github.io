@@ -448,6 +448,26 @@
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
+        var deep_pool = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select the_geom_webmercator, village_en as village, name_en as name, depth_m as depth, cawa_id as id from va_data_deep_pools_points_v1_cawa_20180315',
+            cartocss: '#layer { marker-fill: #2F7BAD; marker-fill-opacity: 0.9; marker-allow-overlap: true; marker-line-width: 0.6; marker-line-color: #FFF; marker-line-opacity: 1; marker-width: [depth]*5;}',
+            interactivity: ['name', 'depth', 'id', 'village']
+            }]
+          }).addTo(deep_pool)
+          .on('done', function(layer) {
+            layer.setZIndex(22);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['name', 'depth', 'id', 'village'])
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
         var water_control = new L.LayerGroup();
 
         cartodb.createLayer(map, {
@@ -1123,7 +1143,7 @@
                           layers: {"Ramsar Boundary Existing": ramsar, "Ramsar Core Zone Existing": core_zone, "CAWA Ramsar Boundary Proposed": ramsar_proposed, "CAWA Core Zone Boundary Proposed": core_z_proposed}
                         },{
                           groupName: "CAWA Project",
-                          layers: {"CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment, "Monkey Forest Boundary": monkey, "CAWA Fish Conservation Zones": cawa_fcz, "CAWA Mimosa pigra Control Pilot": mp_pilot, "Community Fish Pond": cfp, "Eco-Tourism Route": dyke}
+                          layers: {"Deep Pools": deep_pool, "CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment, "Monkey Forest Boundary": monkey, "CAWA Fish Conservation Zones": cawa_fcz, "CAWA Mimosa pigra Control Pilot": mp_pilot, "Community Fish Pond": cfp, "Eco-Tourism Route": dyke}
                         },{
                           groupName: "IUCN",
                           layers: {"Bridge Survey": bridges, "Dam Survey": dams, "Canal Survey": canal, "Erosion Survey": erosion, "Pump Survey": pump, "Water Control Inf. Survey": water_control, "Well Survey": well}
