@@ -286,8 +286,8 @@
       function main()
         {
         var map = new L.Map('map', {
-          center: [16.3739, 105.2106],
-          zoom: 11,
+          center: [16.405870, 105.197268],
+          zoom: 12,
           maxZoom: 22
         });
 
@@ -397,10 +397,10 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from ramsar_existing',
-            cartocss: '#layer { polygon-fill: #00A4E4; polygon-opacity: 0.58; line-width: 1; line-color: #0c475e; line-opacity: 0.5;}',
+            cartocss: '#layer {polygon-fill: #EEEF63; polygon-opacity: 0; line-color: #F387AA; line-width: 2.5; line-opacity: 1; line-dasharray: 3,2}',
             interactivity: 'cartodb_id'
             }]
-          }).addTo(ramsar)
+          }).addTo(map, ramsar)
           .on('done', function(layer) {
             layer.setZIndex(22);
             layer.setInteraction(true);
@@ -416,10 +416,10 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from ramsar_core_zone',
-            cartocss: '#layer { polygon-fill: #EABFDA; polygon-opacity: 0.58; line-width: 1; line-color: #663353; line-opacity: 0.5;}',
+            cartocss: '#layer {polygon-fill: #7BFEAD; polygon-opacity: 0; line-color: #8AA2D3; line-width: 2.5; line-opacity: 1; line-dasharray: 3,2}',
             interactivity: 'cartodb_id'
             }]
-          }).addTo(core_zone)
+          }).addTo(map, core_zone)
           .on('done', function(layer) {
             layer.setZIndex(22);
             layer.setInteraction(true);
@@ -594,9 +594,9 @@
           user_name: 'cawa',
           type: 'cartodb',
           sublayers: [{
-            sql: 'select * from encroach',
-            cartocss: '#layer { polygon-fill: #AD72B5; polygon-opacity: 0.58; line-width: 1; line-color: #481a4f; line-opacity: 0.5;}',
-            interactivity: ['cartodb_id', 'hectares']
+            sql: 'select * from agri_expansion_2011_2015_survey20180320',
+            cartocss: '#layer {polygon-fill: #ffeda0; polygon-opacity: 0.2; line-color: #f03b20; line-width: 2.5; line-opacity: 1; line-dasharray: 3,2}',
+            interactivity: ['area_ha', 'zone']
             }]
           }).addTo(encroachment)
           .on('done', function(layer) {
@@ -604,7 +604,7 @@
             layer.setInteraction(true);
             layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
             layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
-            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['hectares'])
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['area_ha', 'zone'])
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
@@ -832,7 +832,7 @@
           type: 'cartodb',
           sublayers: [{
             sql: 'select * from mp_svk_drone_survey_extents',
-            cartocss: '#layer { polygon-fill: #A4651E; polygon-opacity: 0; line-width: 2; line-color: #320C01; line-opacity: 1; line-dasharray: 2,1}',
+            cartocss: '#layer { polygon-fill: #FFFFFF; polygon-opacity: 0; line-width: 2; line-color: #FFFFFF; line-opacity: 1; line-dasharray: 2,1}',
             interactivity: ['cartodb_id', 'name', 'cawa_id']
             }]
           }).addTo(drone_survey)
@@ -1139,11 +1139,8 @@
                           groupName: "National Geographic Deparment",
                           layers: {"NGD Small Objects": cp_sm_ob, "NGD Built Up Area": built, "NGD Villages": ngd_village, "NGD Elevation Point": ngd_elev}
                         },{
-                          groupName: "Ramsar Boundary",
-                          layers: {"Ramsar Boundary Existing": ramsar, "Ramsar Core Zone Existing": core_zone, "CAWA Ramsar Boundary Proposed": ramsar_proposed, "CAWA Core Zone Boundary Proposed": core_z_proposed}
-                        },{
                           groupName: "CAWA Project",
-                          layers: {"Deep Pools": deep_pool, "CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "CAWA Agricultural Encroachment Survey": encroachment, "Monkey Forest Boundary": monkey, "CAWA Fish Conservation Zones": cawa_fcz, "CAWA Mimosa pigra Control Pilot": mp_pilot, "Community Fish Pond": cfp, "Eco-Tourism Route": dyke}
+                          layers: {"Agricultural Expansion 2011-2015": encroachment,"Deep Pools": deep_pool, "Ramsar Boundary Proposal": ramsar_proposed, "Core Zone Boundary Proposal": core_z_proposed, "CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "Eco-Tourism Route": dyke}
                         },{
                           groupName: "IUCN",
                           layers: {"Bridge Survey": bridges, "Dam Survey": dams, "Canal Survey": canal, "Erosion Survey": erosion, "Pump Survey": pump, "Water Control Inf. Survey": water_control, "Well Survey": well}
