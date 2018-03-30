@@ -608,6 +608,26 @@
           })
           .on('error', function() {cartodb.log.log("some error occurred");});
 
+          var encroach_grid = new L.LayerGroup();
+
+        cartodb.createLayer(map, {
+          user_name: 'cawa',
+          type: 'cartodb',
+          sublayers: [{
+            sql: 'select * from agriculture_expansion_survey2011_2015_grid',
+            cartocss: '#layer {[encro_ha > 0.009] {polygon-fill: #ffc6c4} [encro_ha > 0.49] {polygon-fill: #ee919b} [encro_ha > 1.99] {polygon-fill: #cc607d} [encro_ha > 3.99] {polygon-fill: #9e3963} [encro_ha > 6.99] {polygon-fill: #672044}} #layer::outline {line-width: 1; line-color: #FFFFFF; line-opacity: 0.5;}',
+          interactivity: ['encro_ha']
+          }]
+          }).addTo(encroach_grid)
+          .on('done', function(layer) {
+            layer.setZIndex(22);
+            layer.setInteraction(true);
+            layer.on('featureOver', function(e, latlng, pos, data) {cartodb.log.log(e, latlng, pos, data);});
+            layer.on('error', function(err) {cartodb.log.log('error: ' + err);});
+            cartodb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), ['encro_ha'])
+          })
+          .on('error', function() {cartodb.log.log("some error occurred");});
+
         var grid = new L.LayerGroup();
 
         cartodb.createLayer(map, {
@@ -1140,7 +1160,7 @@
                           layers: {"NGD Small Objects": cp_sm_ob, "NGD Built Up Area": built, "NGD Villages": ngd_village, "NGD Elevation Point": ngd_elev}
                         },{
                           groupName: "CAWA Project",
-                          layers: {"Agricultural Expansion 2011-2015": encroachment,"Deep Pools": deep_pool, "Ramsar Boundary Proposal": ramsar_proposed, "Core Zone Boundary Proposal": core_z_proposed, "CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "Eco-Tourism Route": dyke}
+                          layers: {"Agricultural Expansion 2011-2015": encroachment, "Agriculture Expansion Grid": encroach_grid, "Deep Pools": deep_pool, "Ramsar Boundary Proposal": ramsar_proposed, "Core Zone Boundary Proposal": core_z_proposed, "CAWA Mimosa Pigra Survey Points": mimosa, "CAWA Survey Grid": grid, "Eco-Tourism Route": dyke}
                         },{
                           groupName: "IUCN",
                           layers: {"Bridge Survey": bridges, "Dam Survey": dams, "Canal Survey": canal, "Erosion Survey": erosion, "Pump Survey": pump, "Water Control Inf. Survey": water_control, "Well Survey": well}
