@@ -15,14 +15,12 @@
         height: 100%;
       }
 
-    .ppcont{width:100px;}
-
-    </style>
-  </head>
+ </style>
+ </head>
   <body>
     <div id="mapid"></div>
-  </body>
-</html>
+ </body>
+ </html>
 
 
 
@@ -48,18 +46,8 @@ var pfa_polygons =
 ]
 }
 
-var myStyle = {
-    fillColor: "#ff7800",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
-
   
- L.geoJSON(pfa_polygons, {
-    style: myStyle
-}).addTo(mymap);
+ L.geoJSON(pfa_polygons).addTo(mymap);
  
  </script>
 
